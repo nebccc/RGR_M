@@ -1,8 +1,87 @@
+#include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <string>
 #include <vector>
 
 using namespace std;
+
+string init_zeros_and_ones() {
+    string choice, text;
+
+    while(true) {
+        cout << "Хотите прочитать данные из файла? (Да/Нет) : ";
+        getline(cin, choice);
+
+        transform(choice.begin(), choice.end(), choice.begin(),
+            [](unsigned char c) {return tolower(c); });
+
+        if(choice == "да" || choice == "yes" || choice == "д" || choice == "y") {
+            string text_file_path;
+
+            cout << "Введите путь к файлу с текстом: ";
+            getline(cin, text_file_path);
+
+            ifstream text_file(text_file_path);
+
+            while ((!text_file.is_open()))
+            {
+                cerr << "Ошибка открытия файла. Пожалуйста, проверьте пути и повторите попытку." << endl;
+
+                cout << "Путь к файлу с текстом: ";
+                getline(cin, text_file_path);
+                
+                ifstream text_file(text_file_path);
+            }
+
+            getline(text_file, text);
+
+            text_file.close();
+
+            break;
+        }
+
+        else{
+            cout << "Введите текст: ";
+            getline(cin, text);
+
+            break;
+        }
+    }
+
+    return text;
+}
+
+void write_text(const string& text) {
+    string choice;
+
+    cout << "Хотите записать результат в файл? (Да/Нет) : ";
+    getline(cin, choice);
+
+    transform(choice.begin(), choice.end(), choice.begin(),
+        [](unsigned char c) {return tolower(c); });
+
+    if(choice == "да" || choice == "yes" || choice == "д" || choice == "y") {
+        string file_path;
+
+            cout << "Введите путь куда сохранить текст: ";
+        getline(cin, file_path);
+
+        ofstream file(file_path);
+        if (file.is_open()) {
+            file << text;
+            
+            file.close();
+            cout << "Текст успешно записан в файл." << endl;
+
+
+        } 
+        
+        else {
+            cout << "Не удалось открыть файл." << endl;
+        }
+    }
+}
 
 vector<int> getIntAsciiValues(const string& text) {
     vector<int> asciiValues;

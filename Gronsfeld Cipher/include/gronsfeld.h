@@ -6,7 +6,7 @@
 
 using namespace std;
 
-pair<vector<int>, string> init();
+pair<vector<int>, string> init_gronsfeld();
 void wride_text(string text);
 void caesarCipher();
 void caesarDecipher();

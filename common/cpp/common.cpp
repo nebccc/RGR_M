@@ -4,15 +4,21 @@
 
 using namespace std;
 
-void wride_text(string text) {
-    ofstream outputFile("ciphertext.txt");
-    if (outputFile.is_open()) {
-        for (unsigned char ch : text) {
-            outputFile << ch;
-        }
+void write_text(const string& text) {
+    string file_path;
 
-        outputFile.close();
+    cout << "Введите путь куда сохранить текст: ";
+    getline(cin, file_path);
 
-        cout << "Зашифрованный текст успешно записан в файл ciphertext.txt" << endl;
+    ofstream file(file_path);
+    if (file.is_open()) {
+        file << text;
+        
+        file.close();
+        cout << "Текст успешно записан в файл." << endl;
+    } 
+    
+    else {
+        cout << "Не удалось открыть файл." << endl;
     }
 }

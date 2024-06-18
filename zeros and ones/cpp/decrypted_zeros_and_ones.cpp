@@ -1,8 +1,8 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 
 #include "../include/common_zeros_and_ones.h"
-#include "common/include/common.h"
 
 vector<vector<int>> decryptSequence(const vector<vector<int>>& encryptedSequences) {
     vector<vector<int>> decryptedSequences;
@@ -28,10 +28,7 @@ vector<vector<int>> decryptSequence(const vector<vector<int>>& encryptedSequence
 }
 
 void zero_and_ones_decrypt() {
-    string inputText;
-
-    cout << "Введите текст: ";
-    getline(cin, inputText);
+    string inputText = init_zeros_and_ones();
 
     vector<int> asciiValues = getIntAsciiValues(inputText);
     vector<vector<int>> binaryVectors = decimalToBinary(asciiValues);
@@ -40,5 +37,9 @@ void zero_and_ones_decrypt() {
     string text = getCharAsciiValues(decryptedAsciiValues);
 
     cout << "Расшифрованное сообщение: " << text << endl << endl;
-    wride_text(text);
+
+    write_text(text);
+
+    cout << endl << endl;
+    cout << "Выход (q): ";
 }

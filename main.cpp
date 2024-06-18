@@ -3,11 +3,13 @@
 #include "Gronsfeld Cipher/include/gronsfeld.h"
 #include "zeros and ones/include/encrypt_zeros_and_ones.h"
 #include "zeros and ones/include/decrypted_zeros_and_ones.h"
+#include "Polybius square/include/decrypt_polybius_square.h"
+#include "Polybius square/include/encrypt_polybius_square.h"
 
 void menu() {
     cout << "1 - Шифр Гронсфельда" << endl;
-    cout << "2 - Матричная шифровка" << endl;
-    cout << "3 - Шифровка последовательностей нулей и единиц" << endl;
+    cout << "2 - Шифровка последовательностей нулей и единиц" << endl;
+    cout << "3 - Квадрат Полибия" << endl;
 
     int choice;
 
@@ -52,6 +54,25 @@ void menu() {
 
         else{
             zero_and_ones_decrypt();
+        }
+    }
+
+    else {
+        cout << "1 - Закодировать" << endl;
+        cout << "2 - Расскодировать" << endl;
+
+        cin >> choice;
+        cin.ignore();
+
+        printf("\033[2J");
+        printf("\033[0;0f");
+
+        if(choice == 1) {
+            encrypt_polybius_square();
+        }
+
+        else {
+            decrypt_polybius_square();
         }
     }
 }

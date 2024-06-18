@@ -7,7 +7,7 @@
 
 using namespace std;
 
-pair<vector<int>, string> init() {
+pair<vector<int>, string> init_gronsfeld() {
     string input_key;
     vector<int> init_key;
 
@@ -49,7 +49,7 @@ void caesarCipher() {
     string message;
     vector<int> shifts;
 
-    tie(shifts, message) = init();
+    tie(shifts, message) = init_gronsfeld();
 
     string result = "";
 
@@ -69,7 +69,7 @@ void caesarDecipher() {
     string message;
     vector<int> shifts;
 
-    tie(shifts, message) = init();
+    tie(shifts, message) = init_gronsfeld();
 
     string result = "";
     int shift_size = shifts.size();
