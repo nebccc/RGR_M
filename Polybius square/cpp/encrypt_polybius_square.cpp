@@ -44,4 +44,7 @@ void encrypt_polybius_square() {
     string encryptedText = isRussian ? encryptPolybiusSquare(text, polybiusSquareRussian) : encryptPolybiusSquare(text, polybiusSquareLatin);
 
     cout << "Зашифрованный текст: " << encryptedText << endl;
+
+    string exit;
+    cin >> exit;
 }

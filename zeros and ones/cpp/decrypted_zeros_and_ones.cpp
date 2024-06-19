@@ -40,6 +40,13 @@ void zero_and_ones_decrypt() {
 
     write_text(text);
 
+    string exit;
+
     cout << endl << endl;
     cout << "Выход (q): ";
+
+    cin >> exit;
+    
+    printf("\033[2J");
+    printf("\033[0;0f");
 }

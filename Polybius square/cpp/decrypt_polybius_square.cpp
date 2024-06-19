@@ -36,4 +36,9 @@ void decrypt_polybius_square() {
     bool isRussian = (text.find_first_of("АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя") != string::npos);
 
     string decryptedText = isRussian ? decryptPolybiusSquare(text, reversePolybiusSquareRussian) : decryptPolybiusSquare(text, reversePolybiusSquareLatin);
+
+    cout << "Расшифрованный текст: " << decryptedText << endl;
+
+    string exit;
+    cin >> exit;
 }

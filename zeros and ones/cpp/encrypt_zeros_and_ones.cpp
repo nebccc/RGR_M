@@ -37,6 +37,13 @@ void zero_and_ones_encrypt() {
     vector<int> decryptedAsciiValues = binaryVectorsToDecimal(encryptedSequences);
     string text = getCharAsciiValues(decryptedAsciiValues);
 
+    for(auto row : encryptedSequences) {
+        for(int num : row) {
+            cout << num;
+        }
+        cout << endl;
+    }
+
     cout << "Зашифрованное сообщение: " << text << endl << endl;
 
     write_text(text);

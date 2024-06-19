@@ -4,8 +4,10 @@
 #include <vector>
 #include <tuple>
 #include <fstream>
+#include <cctype>
 
 using namespace std;
+
 
 pair<vector<int>, string> init_gronsfeld() {
     string input_key;
@@ -13,6 +15,21 @@ pair<vector<int>, string> init_gronsfeld() {
 
     cout << "Введите ключ: ";
     getline(cin, input_key);
+
+    bool valid_key = true;
+
+    // Проверяем, что в ключе содержатся только цифры
+    for (char ch : input_key) {
+        if (!isdigit(ch)) {
+            valid_key = false;
+            break;
+        }
+    }
+
+    if (!valid_key) {
+        cout << "Ошибка: Ключ должен состоять только из цифр. Пожалуйста, введите ключ заново." << endl;
+        return init_gronsfeld(); // Рекурсивно вызываем функцию для повторного ввода
+    }
 
     istringstream stream(input_key);
 
@@ -62,7 +79,12 @@ void caesarCipher() {
         result += char((c + shift) % 256); // Используем модуль 256 для всех символов ASCII
     }
 
+    cout << "Зашифрованное сообщение: " << result << endl;
+
     wride_text(result);
+
+    string exit;
+    cin >> exit;
 }
 
 void caesarDecipher() {
@@ -81,5 +103,10 @@ void caesarDecipher() {
         result += char((c - shift + 256) % 256);
     }
 
+    cout << "Расшифрованный текст: " << result << endl;
+
     wride_text(result);
+
+    string exit;
+    cin >> exit;
 }
