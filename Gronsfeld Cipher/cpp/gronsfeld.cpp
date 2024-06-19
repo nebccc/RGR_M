@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -10,55 +11,107 @@ using namespace std;
 
 
 pair<vector<int>, string> init_gronsfeld() {
-    string input_key;
-    vector<int> init_key;
+    string choice, key, text;
+    vector<int> key_nums;
 
-    cout << "Введите ключ: ";
-    getline(cin, input_key);
+    cout << "Хотите считать данные с файла? (Да/Нет): ";
+    getline(cin, choice);
 
-    bool valid_key = true;
+    transform(choice.begin(), choice.end(), choice.begin(),
+        [](unsigned char c) {return tolower(c); });
 
-    // Проверяем, что в ключе содержатся только цифры
-    for (char ch : input_key) {
-        if (!isdigit(ch)) {
-            valid_key = false;
-            break;
+    if(choice == "да" || choice == "yes" || choice == "д" || choice == "y") {
+        string key_file_path, text_file_path;
+
+        cout << "Введите путь до ключа: ";
+        getline(cin, key_file_path);
+
+        ifstream key_file(key_file_path);
+
+        while((!key_file.is_open())) {
+            cerr << "Ошибка открытия файла. Пожалуйста, проверьте пути и повторите попытку." << endl;
+
+            cout << "Введите путь до ключа: ";
+            getline(cin, key_file_path);
+
+            ifstream key_file(key_file_path);
         }
-    }
 
-    if (!valid_key) {
-        cout << "Ошибка: Ключ должен состоять только из цифр. Пожалуйста, введите ключ заново." << endl;
-        return init_gronsfeld(); // Рекурсивно вызываем функцию для повторного ввода
-    }
+        getline(key_file, key);
 
-    istringstream stream(input_key);
+        cout << "Введите путь до файла с текстом: ";
+        getline(cin, text_file_path);
 
-    char ch;
-    while (stream >> ch) {
-        if (isdigit(ch)) {
+        ifstream text_file(text_file_path);
+
+        while((!text_file.is_open())) {
+            cerr << "Ошибка открытия файла. Пожалуйста, проверьте пути и повторите попытку." << endl;
+
+            cout << "Введите путь до файла с текстом: ";
+            getline(cin, text_file_path);
+
+            ifstream text_file(text_file_path);
+        }
+
+        getline(text_file, text);
+
+        istringstream stream(key);
+
+        char ch;
+        while(stream >> ch) {
             int num = ch - '0';
-            init_key.push_back(num);
+            key_nums.push_back(num);
         }
     }
 
-    string text;
+    else{
+        cout << "Введите ключ: ";
+        getline(cin, key);
 
-    cout << "Введите текст: ";
-    getline(cin, text);
+        istringstream stream(key);
 
-    return {init_key, text};
+        char ch;
+        while(stream >> ch) {
+            int num = ch - '0';
+            key_nums.push_back(num);
+        }
+
+        cout << "Введите текст: ";
+        getline(cin, text);
+    }
+
+    return {key_nums, text};
 }
 
 void wride_text(string text) {
-    ofstream outputFile("ciphertext.txt");
-    if (outputFile.is_open()) {
-        for (unsigned char ch : text) {
-            outputFile << ch;
+    string choice;
+    cout << "Хотите сохранить зашитфрованное сообщение в файл? (Да/Нет): ";
+
+    cin >> choice;
+    cin.ignore();
+
+    transform(choice.begin(), choice.end(), choice.begin(),
+        [](unsigned char c) {return tolower(c); });
+
+    if(choice == "да" || choice == "yes" || choice == "д" || choice == "y") {
+        string file_path;
+
+        cout << "Введите путь куда сохранить текст: ";
+
+        getline(cin, file_path);
+        cin.ignore();
+
+        ofstream file(file_path);
+        if (file.is_open()) {
+            file << text;
+            
+            file.close();
+            cout << "Текст успешно записан в файл." << endl;
+        } 
+        
+        else {
+            cout << "Не удалось открыть файл." << endl;
         }
-
-        outputFile.close();
-
-        cout << "Текст успешно записан в файл ciphertext.txt" << endl;
     }
 }
 

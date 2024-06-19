@@ -35,9 +35,7 @@ void encrypt_polybius_square() {
     unordered_map<char, string> polybiusSquareRussian = createPolybiusSquareRussian();
     unordered_map<string, char> reversePolybiusSquareRussian = createReversePolybiusSquare(polybiusSquareRussian);
 
-    string text;
-    cout << "Введите текст: ";
-    getline(cin, text);
+    string text = init_polybius_square();
 
     bool isRussian = (text.find_first_of("АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя") != string::npos);
 
@@ -45,6 +43,8 @@ void encrypt_polybius_square() {
 
     cout << "Зашифрованный текст: " << encryptedText << endl;
 
+    save_polybius_square(encryptedText);
+    
     string exit;
     cin >> exit;
 }
